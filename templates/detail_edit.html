@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{% static 'sign_up.css' %}">
+<title>Update Detail</title>
+</head>
+<body style="background-color:red;">
+<div class="model">
+    <!-- {% url 'table' %} -->
+  <form class="modal-content" action="" method="post">
+    {% csrf_token %}
+    <div class="container">
+    {% for i in contaxt %}
+      <h1>Detail Update</h1>
+      <input type="hidden" name="user_id"  value="{{ i.user_id }}">
+
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+      <label for="username"><b>Username</b></label>
+      <input type="text" name="username" required value="{{ i.username }}">
+
+      <label for="email"><b>Email</b></label>
+      <input type="text" name="email" required value="{{ i.email }}">
+
+      <label for="password"><b>Password</b></label>
+      <input type="password" id="password"  name="password" required onchange='check_pass();' value="{{ i.password }}">
+
+      <label for="conform_password"><b>Conform Password</b></label>
+      <input type="password"  id="confirm_password" name="conform_password" required onchange='check_pass();' value="{{ i.conform_password }}">
+      <label for="address"><b>Address</b></label>
+      <input type="text"  name="address" required value="{{ i.address }}">
+
+      <div class="clearfix">
+        
+        <button type="submit" class="signupbtn" id="submit">Update</button>
+      </div>
+    </div>
+  </form>
+  {% endfor %}
+
+</div>
+</body>
+<script>
+
+var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm_password");
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
+</script>
+</html>
